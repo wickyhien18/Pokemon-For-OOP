@@ -11,7 +11,7 @@ xây dựng để luyện 4 trụ cột OOP + composition thông qua debug thậ
 | `Pokemon.py`      | Dữ liệu + trạng thái 1 Pokemon (stats, HP, status, buff/debuff)           |
 | `Effect.py`       | `Effect` (abstract) + `DamageEffect`, `InflictStatucEffect`               |
 | `Move.py`         | 1 chiêu thức — chỉ giữ data + list `Effect`, không tự tính toán           |
-| `status.py`       | `StatusCondition` (abstract) + `Burn`, `Poison`, `Paralysis`              |
+| `Status.py`       | `StatusCondition` (abstract) + `Burn`, `Poison`, `Paralysis`              |
 | `Trainer.py`      | 1 trainer sở hữu team Pokemon, quản lý switch                             |
 | `BattleSystem.py` | Điều phối turn: thứ tự đánh, thực thi move, cuối turn                     |
 | `main.py`         | Chương trình chính — chạy 1 trận đấu đầy đủ từ đầu tới khi có người thắng |
