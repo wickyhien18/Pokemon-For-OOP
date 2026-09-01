@@ -18,8 +18,8 @@ class DamageEffect(Effect):
         else:
             atk_stat, def_stat = "sp_atk", "sp_def"
 
-        atk_value = user.get_effective_stat(atk_stat)
-        def_value = user.get_effective_stat(def_stat)
+        atk_value = target.get_effective_stat(atk_stat)
+        def_value = target.get_effective_stat(def_stat)
 
         damage = int(self.power * atk_value / def_value)
 
@@ -34,7 +34,7 @@ class InflictStatucEffect(Effect):
     def apply(self, user, target) -> None:
         if target.status_condition is not None:
             return
-        if random.random < self.chance:
+        if random.random() < self.chance:
             target.apply_status(self.status_cls())
 
         print(f"{target.name} is afflicted with {self.status_cls.__name__}")
