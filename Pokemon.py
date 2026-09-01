@@ -23,7 +23,7 @@ class Pokemon:
         self.current_hp = self.max_hp
 
         self.status_condition = None
-        self.stat_stages = {"atk": 0, "def": 0, "sp_atk" : 0, "sp_def": 0, "speed": 0, "accurancy": 0}
+        self.stat_stages = {"atk": 0, "def": 0, "sp_atk" : 0, "sp_def": 0, "speed": 0, "accuracy": 0}
 
     def _calc_hp_stat(self) -> int:
         return int(self.base_hp * (1 + self.level / 50)) + self.level
@@ -42,7 +42,8 @@ class Pokemon:
         return 1 + stage * 0.25
 
     def get_effective_stat(self, stat_name: str) -> int:
-        raw_value = getattr(self, stat_name)
+        attr_name = stat_name + "_" if stat_name == "def" else stat_name
+        raw_value = getattr(self, attr_name)
         return int(raw_value * self.get_stat_multiplier(stat_name))
 
     def apply_status(self, status) -> None:
