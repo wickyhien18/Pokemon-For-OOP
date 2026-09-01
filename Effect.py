@@ -18,7 +18,7 @@ class DamageEffect(Effect):
         else:
             atk_stat, def_stat = "sp_atk", "sp_def"
 
-        atk_value = target.get_effective_stat(atk_stat)
+        atk_value = user.get_effective_stat(atk_stat)
         def_value = target.get_effective_stat(def_stat)
 
         damage = int(self.power * atk_value / def_value)
