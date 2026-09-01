@@ -6,15 +6,15 @@ xây dựng để luyện 4 trụ cột OOP + composition thông qua debug thậ
 
 ## Cấu trúc file
 
-| File | Vai trò |
-|---|---|
-| `Pokemon.py` | Dữ liệu + trạng thái 1 Pokemon (stats, HP, status, buff/debuff) |
-| `Effect.py` | `Effect` (abstract) + `DamageEffect`, `InflictStatucEffect` |
-| `Move.py` | 1 chiêu thức — chỉ giữ data + list `Effect`, không tự tính toán |
-| `status.py` | `StatusCondition` (abstract) + `Burn`, `Poison`, `Paralysis` |
-| `Trainer.py` | 1 trainer sở hữu team Pokemon, quản lý switch |
-| `BattleSystem.py` | Điều phối turn: thứ tự đánh, thực thi move, cuối turn |
-| `main.py` | Chương trình chính — chạy 1 trận đấu đầy đủ từ đầu tới khi có người thắng |
+| File              | Vai trò                                                                   |
+| ----------------- | ------------------------------------------------------------------------- |
+| `Pokemon.py`      | Dữ liệu + trạng thái 1 Pokemon (stats, HP, status, buff/debuff)           |
+| `Effect.py`       | `Effect` (abstract) + `DamageEffect`, `InflictStatucEffect`               |
+| `Move.py`         | 1 chiêu thức — chỉ giữ data + list `Effect`, không tự tính toán           |
+| `status.py`       | `StatusCondition` (abstract) + `Burn`, `Poison`, `Paralysis`              |
+| `Trainer.py`      | 1 trainer sở hữu team Pokemon, quản lý switch                             |
+| `BattleSystem.py` | Điều phối turn: thứ tự đánh, thực thi move, cuối turn                     |
+| `main.py`         | Chương trình chính — chạy 1 trận đấu đầy đủ từ đầu tới khi có người thắng |
 
 Chạy: `python3 main.py`
 
@@ -24,10 +24,10 @@ Chạy: `python3 main.py`
 
 ### 1. Encapsulation — giấu trạng thái, chỉ lộ hành vi
 
-| Chỗ nào | Vì sao không cho sửa trực tiếp |
-|---|---|
-| `Pokemon.take_damage()` | Là cổng duy nhất sửa `current_hp` — đảm bảo `max(0, ...)` clamp, HP không bao giờ âm |
-| `Pokemon.apply_status()` | Là cổng duy nhất gán `status_condition` — đảm bảo `on_apply()` luôn được gọi, không bị quên |
+| Chỗ nào                        | Vì sao không cho sửa trực tiếp                                                                        |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `Pokemon.take_damage()`        | Là cổng duy nhất sửa `current_hp` — đảm bảo `max(0, ...)` clamp, HP không bao giờ âm                  |
+| `Pokemon.apply_status()`       | Là cổng duy nhất gán `status_condition` — đảm bảo `on_apply()` luôn được gọi, không bị quên           |
 | `Pokemon.get_effective_stat()` | Đọc stat đã áp buff/debuff, thay vì đọc thẳng field gốc (`self.atk`) lúc đang có `stat_stages` active |
 
 ### 2. Inheritance — class con thừa hưởng từ class cha
@@ -90,14 +90,3 @@ viết test độc lập từng class dễ hơn. Cách duy nhất bắt được
 và 3 là **tự ép trường hợp biên** khi test (`chance=0.0`/`1.0`, so sánh
 `raw` vs `effective` stat) — chạy với giá trị ngẫu nhiên bình thường không
 đủ để lộ ra.
-
-## Điểm cố ý đơn giản hoá (chưa làm, để giữ đúng mục tiêu học OOP)
-
-- Damage formula không dùng `TypeChart` (hệ khắc hệ) — có thể tự thêm sau
-  nếu muốn luyện thêm 1 class nữa.
-- Chưa random 50/50 khi speed bằng nhau tuyệt đối (dùng stable sort, ai
-  đứng trước trong list thắng).
-- "Bắt buộc switch khi fainted" xử lý ở tầng gọi `run_turn()` (trong
-  `main.py`), không tự động hoá bên trong `BattleSystem` — giữ
-  `BattleSystem` đơn giản, chỉ điều phối 1 turn, không quản lý toàn bộ luồng
-  trận đấu.
