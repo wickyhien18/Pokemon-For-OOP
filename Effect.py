@@ -36,5 +36,4 @@ class InflictStatucEffect(Effect):
             return
         if random.random() < self.chance:
             target.apply_status(self.status_cls())
-
-        print(f"{target.name} is afflicted with {self.status_cls.__name__}")
+            print(f"{target.name} is afflicted with {self.status_cls.__name__}")
